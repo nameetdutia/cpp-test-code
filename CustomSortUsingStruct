@@ -1,0 +1,89 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <bits/stdc++.h> 
+
+
+using namespace std;
+
+struct ele
+{
+    int n, freq,index;
+};
+
+bool comp(struct ele a,struct ele b)
+{
+           return (a.n<b.n);
+}
+
+bool comp2(struct ele a,struct ele b)
+{
+    return (a.freq>b.freq);
+}
+void fillStruct(vector <int> a, int c)
+{
+    ele e[c];
+    for(int i=0;i<c;i++)
+    {
+        e[i].index=i;
+        e[i].freq=0;
+        e[i].n=a[i];
+    }
+    
+        stable_sort(e, e+c,comp); //O(nlogn)
+    
+   
+    
+    for(int i=1;i<c;i++)
+    {
+        if(e[i].n==e[i-1].n)
+        e[i].freq=e[i-1].freq+1;
+        
+    }
+    
+     cout<<"After stable sort, output is"<<endl;
+    cout<<"n" <<" | " << "index" <<" | " << "freq" <<endl;
+    for (int i=0;i<c;i++)
+    {   
+        cout<<e[i].n<<" | "<<e[i].index<< "     | "<<e[i].freq<<endl;
+    }
+    
+    stable_sort(e,e+c, comp2);
+        
+         cout<<"After stable sort comp2, output is"<<endl;
+    cout<<"n" <<" | " << "index" <<" | " << "freq" <<endl;
+    for (int i=0;i<c;i++)
+    {   
+        cout<<e[i].n<<" | "<<e[i].index<< "     | "<<e[i].freq<<endl;
+    }
+}
+void print(vector <int> a, int c)
+{
+     for (int i=0;i<c;i++)
+    {  cout<<a[i]<<endl;
+    }
+}
+
+
+
+int main()
+{   int c,item;
+    vector <int> a;
+ 
+    cout<<"Enter the count array to be sorted by freq"<<endl;
+    cin>>c;
+    
+    cout<<"Enter the array"<<endl;
+    for (int i=0;i<c;i++)
+    {   cin>>item;
+        a.push_back(item);
+    }
+    
+    
+    cout<<"Before stable sort, output is"<<endl;
+    print(a,c);
+    
+    cout<<"Construct 2D array with frequency"<<endl;
+    fillStruct(a,c);
+}
+
