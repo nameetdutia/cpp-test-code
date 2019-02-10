@@ -1,0 +1,94 @@
+#include <iostream>
+#include <bits/stdc++.h>
+
+unordered_map<int,int> m2;
+
+void print(vector<int> a, int c)
+{
+    cout<<"Printing array"<<endl;
+    for(int i=0;i<c;i++)
+    {
+        cout<< a[i] <<endl;
+    }
+}
+
+void printVP(vector<pair<int,int>> a, int c)
+{
+    cout<<"Printing vector pair"<<endl;
+    for(int i=0;i<a.size();i++)
+    {
+        cout<< a[i].first <<":" <<a[i].second <<endl;
+    }
+}
+
+void print_map (unordered_map<int,int> m)
+    {
+   cout << "mymap's buckets contain:\n";
+  for ( int i = 0; i < m.bucket_count(); i++) {
+        cout << "bucket #" << i << " contains:";    
+ for ( auto j = m.begin(i); j!= m.end(i); j++ )
+    cout << " " << j->first << ":" << j->second;
+      cout << endl;
+      
+  }
+}
+
+bool SortVectorCustom(pair<int,int> a, pair<int,int> b)
+{
+    if(a.second==b.second)
+        return m2[a.first] < m2[b.first];
+    else 
+        return a.second>b.second;
+}
+
+void sortCustom(vector<int> a, int c)
+{
+    unordered_map<int,int> m; //m holds count of each element
+    vector<pair<int,int>> v;
+    
+    cout<<"Map object m created"<<endl;
+    
+    //initialize map with count
+    for (int i=0;i<c;i++)
+    {
+        m[a[i]]++;
+        
+       if(m2[a[i]]==0)
+        {
+            m2[a[i]]=i+1;
+        }
+        
+    }
+    cout<<"Map object m initialized with count or frequency of each element"<<endl;
+
+    print_map(m);
+    cout<<"================================="<<endl;
+    print_map(m2);
+    
+    copy(m.begin(),m.end(),back_inserter(v));
+    cout<<"Copied map to vector"<<endl;
+    cout<<"Print vector pair before sort"<<endl;
+    printVP(v,c);
+    cout<<"Calling sort on vector..."<<endl;
+    sort(v.begin(), v.end(),SortVectorCustom);
+ 
+        printVP(v,c);
+
+}
+
+int main() {
+    int c,item;
+   cout<<"Enter number of elements"<<endl;
+    cin>>c;
+    vector <int> a;
+    cout<<"Enter the elements"<<endl;
+    for (int i=0;i<c;i++)
+    {   
+        cin>>item;
+        a.push_back(item);
+    }
+    print(a,c);
+    
+    sortCustom(a,c);
+
+}
