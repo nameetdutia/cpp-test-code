@@ -1,0 +1,25 @@
+/*
+ * Complete the 'countHoles' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts INTEGER num as parameter.
+ */
+
+int holes[]={1,0,0,0,1,0,1,0,2,1};
+
+int countHoles(int num) {
+    
+    int holeCount=0;
+    int d;
+    while (num>0)
+    {
+        d=num%10; //Get the units digit
+        
+        holeCount+=holes[d];
+        
+        num/=10;
+        
+    }
+
+    return holeCount;
+}
